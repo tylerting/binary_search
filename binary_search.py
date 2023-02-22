@@ -10,10 +10,9 @@ Pay very close attention to your list indexes and your < vs <= operators.
 
 def find_smallest_positive(xs):
     if len(xs) == 0:
-        return 0
+        return None
     left = 0
     right = len(xs) - 1
-
     while left <= right:
         mid = (left + right) // 2
         if xs[mid] > 0:
