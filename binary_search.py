@@ -8,22 +8,6 @@ Pay very close attention to your list indexes and your < vs <= operators.
 '''
 
 def find_smallest_positive(xs):
-    '''
-    Assume that xs is a list of numbers sorted from LOWEST to HIGHEST,
-    Find the index of the smallest positive number.
-    If no such index exists, return `None`.
-
-
-    APPLICATION:
-    This is a classic question for technical interviews.
-
-    >>> find_smallest_positive([-3, -2, -1, 0, 1, 2, 3])
-    4
-    >>> find_smallest_positive([1, 2, 3])
-    0
-    >>> find_smallest_positive([-3, -2, -1]) is None
-    True
-    '''
     if len(xs) == 0:
         return 0
     left = 0
