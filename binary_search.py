@@ -8,13 +8,10 @@ Pay very close attention to your list indexes and your < vs <= operators.
 
 def find_smallest_positive(xs):
     '''
-    Assume that xs is a list of numbers sorted from LOWEST to HIGHEST.
+    Assume that xs is a list of numbers sorted from LOWEST to HIGHEST,
     Find the index of the smallest positive number.
     If no such index exists, return `None`.
 
-    HINT: 
-    This is essentially the binary search algorithm from class,
-    but you're always searching for 0.
 
     APPLICATION:
     This is a classic question for technical interviews.
@@ -26,6 +23,21 @@ def find_smallest_positive(xs):
     >>> find_smallest_positive([-3, -2, -1]) is None
     True
     '''
+    if len(xs) == 0:
+        return 0
+    left = 0
+    right = len(xs) - 1
+
+    while left <= right:
+        mid = (left + right)//2
+        if xs[mid] > 0:
+            if mid == 0 or xs[mid - 1] <= 0:
+                return mid
+            else:
+                right = mid - 1
+        else:
+            left = mid + 1
+    return None
 
 
 def count_repeats(xs, x):
@@ -52,6 +64,53 @@ def count_repeats(xs, x):
     >>> count_repeats([3, 2, 1], 4)
     0
     '''
+    def step1(xs, x):
+        if len(xs) == 0:
+            return 0
+        left = 0
+        right = len(xs) - 1
+        position = -1
+        while left <= right:
+            mid = (left + right) // 2
+            if xs[mid] > x:
+                left = mid + 1
+            elif xs[mid] < x:
+                right = mid - 1
+            else:
+                position = mid
+                right = mid - 1
+        return position
+
+
+    def step2(xs, x):
+        if len(xs) == 0:
+            return 0
+        left = 0
+        right = len(xs) - 1
+        position = -1 
+        while left <= right:
+            mid = (left + right) // 2
+            if xs[mid] > x:
+                left = mid + 1
+            elif xs[mid] < x:
+                right = mid - 1
+            else:
+                position = mid
+                left = mid + 1
+        return position
+    
+    step1 = step1(xs,x)
+    step2 = step2(xs,x)
+    if x not in xs:
+        return 0
+    if step1 == step2:
+        return 1
+    if xs[0] == xs[-1]:
+        return len(xs)
+    if step1 == 0:
+        return step2 - step1
+    else:
+        return step2 - step1+ 1 
 
 
 def argmin(f, lo, hi, epsilon=1e-3):
@@ -87,7 +146,16 @@ def argmin(f, lo, hi, epsilon=1e-3):
     >>> argmin(lambda x: (x-5)**2, -20, 0)
     -0.00016935087808430278
     '''
-
+    if (hi - lo) < epsilon:
+        return lo
+    m1 = lo + (hi - lo) / 4
+    m2 = lo + (hi - lo) / 4 * 3
+    if (hi - lo) < episilon:
+        return lo
+    if f(m1) < f(m2):
+        return argmin(f, lo, m2, epsilon)
+    else:
+        return argmin(f, m1, hi, epsilon)
 
 ################################################################################
 # the functions below are extra credit
