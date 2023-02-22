@@ -32,7 +32,6 @@ def count_repeats(xs, x):
     and that x is a number.
     Calculate the number of times that x occurs in xs.
 
-    HINT: 
     Use the following three step procedure:
         1) use binary search to find the lowest index with a value >= x
         2) use binary search to find the lowest index with a value < x
